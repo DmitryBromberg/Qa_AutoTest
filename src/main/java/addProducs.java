@@ -11,7 +11,7 @@ public class addProducs {
     private By iconSmallBsket = By.xpath("//div[@id='small-basket']/a[@href='/basket/']");
     private By productInTheBasket = By.xpath("//div[@class='cart-block__merchant']//div[@class='cart-block__group']");
     private By quickLook = By.xpath("//li[@data-product-id='8142']//button[@class='catalog__fast-view btn btn_sm btn_lc']");
-    
+
 
     public SelenideElement addToBasketFromPlt(){
 
