@@ -1,33 +1,17 @@
 import com.codeborne.selenide.*;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-
-import java.util.ArrayList;
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.WebDriverRunner.url;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import static com.codeborne.selenide.Selenide.*;
-import java.util.ArrayList;
+import java.util.Random;
 
-import static com.codeborne.selenide.WebDriverRunner.url;
 
-public class TestRegistration {
 
-    Registration r;
+public class TestRegistration extends BaseTest {
 
-        @BeforeClass
-        public static void setUp(){
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\X3M\\Desktop\\chromedriver.exe");
-            Configuration.browser = "chrome";
-            open("https://market.leroymerlin.ru");
-        }
+    RegistrPage r;
+    String errorMessage = "Обязательное поле";
+    String pass = "Qwert1993";
+    ////Генератор параметров
     @DataProvider(name = "data-provider")
         public static Object[][] someParam() {
             return new Object[][]{
@@ -39,19 +23,33 @@ public class TestRegistration {
             };
         }
 
-
+        ///Проверка отображения ошибок под пустыми полями
         @Test
         public void emptyFieldsChecking(){
-            r = new Registration();
-            r.errorOfEmptyFields().get(0).shouldHave(Condition.text("Обязательное поле"));
-            r.errorOfEmptyFields().get(1).shouldHave(Condition.text("Обязательное поле"));
-            r.errorOfEmptyFields().get(2).shouldHave(Condition.text("Обязательное поле"));
+            open("https://market.leroymerlin.ru");
+            r = new RegistrPage();
+            r.errorOfEmptyFields().get(0).shouldHave(Condition.text(errorMessage));
+            r.errorOfEmptyFields().get(1).shouldHave(Condition.text(errorMessage));
+            r.errorOfEmptyFields().get(2).shouldHave(Condition.text(errorMessage));
 
         }
+        ///Проверка отображения ошибок под полем email при не валидных параметрах
         @Test(dataProvider = "data-provider")
         public void invalidEmailChecking(String txt){
-            r = new Registration();
+            open("https://market.leroymerlin.ru");
+            r = new RegistrPage();
             r.invalidEmail(txt).shouldHave(Condition.text("Некорректный e-mail")).should(Condition.visible);
+        }
+
+        ////Успешная регистрация
+        @Test
+        public void validEmail(){
+            open("https://market.leroymerlin.ru");
+            String randEmail = getRandomEmail();
+            String randName = getRandomName();
+
+            r = new RegistrPage();
+            r.successfulRegister(randEmail,randName,pass).shouldHave(Condition.text("Личный кабинет Леруа Мерлен Маркет"));
         }
     }
 
