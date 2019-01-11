@@ -2,6 +2,8 @@ import com.codeborne.selenide.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.*;
+
+import java.util.List;
 import java.util.Random;
 
 
@@ -28,9 +30,11 @@ public class TestRegistration extends BaseTest {
         public void emptyFieldsChecking(){
             open("https://market.leroymerlin.ru");
             r = new RegistrPage();
-            r.errorOfEmptyFields().get(0).shouldHave(Condition.text(errorMessage));
-            r.errorOfEmptyFields().get(1).shouldHave(Condition.text(errorMessage));
-            r.errorOfEmptyFields().get(2).shouldHave(Condition.text(errorMessage));
+            List<SelenideElement>elem = r.errorOfEmptyFields();
+            for(SelenideElement e:elem){
+                e.shouldHave(Condition.text(errorMessage));
+            }
+
 
         }
         ///Проверка отображения ошибок под полем email при не валидных параметрах
@@ -47,7 +51,6 @@ public class TestRegistration extends BaseTest {
             open("https://market.leroymerlin.ru");
             String randEmail = getRandomEmail();
             String randName = getRandomName();
-
             r = new RegistrPage();
             r.successfulRegister(randEmail,randName,pass).shouldHave(Condition.text("Личный кабинет Леруа Мерлен Маркет"));
         }
