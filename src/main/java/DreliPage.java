@@ -25,12 +25,12 @@ public class DreliPage {
     private SelenideElement addToWishList = $(xpath("//li[@data-product-id=\"8142\"]//span[@class='btn__text']"));
     private SelenideElement iconWishList = $(xpath("//div[@id='shop-list']/a[@href='/shopping_list/']"));
     private SelenideElement prodInWishList = $(xpath("//div[@class='catalog__pic']/a"));
-    private static SelenideElement sortDroplist = $(xpath("//*[@id=\"select2-sorting-order-top-container\"]"));
+    private SelenideElement sortDroplist = $(xpath("//*[@id=\"select2-sorting-order-top-container\"]"));
     private SelenideElement ascSorted = $(xpath("//select[@id='sorting-order-top']/option[@value='price_asc']"));
     private SelenideElement descSorted = $(xpath("//select[@id='sorting-order-top']/option[@value='price_desc']"));
-    private static SelenideElement sortContainer = $(xpath("//div[@class='sorting__order sorting__order_catalog sorting__order_quantity']"));
-    private static SelenideElement sortQuantity = $(xpath("//select[@id='sorting-quantity-top']/option[@value='50']"));
-    private static SelenideElement sortByName = $(xpath("//select[@id='sorting-order-top']/option[@value='name']"));
+    private SelenideElement sortContainer = $(xpath("//div[@class='sorting__order sorting__order_catalog sorting__order_quantity']"));
+    private SelenideElement sortQuantity = $(xpath("//select[@id='sorting-quantity-top']/option[@value='50']"));
+    private SelenideElement sortByName = $(xpath("//select[@id='sorting-order-top']/option[@value='name']"));
 
 
     ///Добавление с плитки товаров
